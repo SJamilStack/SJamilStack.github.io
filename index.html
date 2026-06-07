@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shihab Jamil — Full-Stack Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-base: #FAFAFA;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F4F4F5;
+      --bg-muted: #E4E4E7;
+      --text-primary: #18181B;
+      --text-secondary: #52525B;
+      --text-muted: #A1A1AA;
+      --accent: #6366F1;
+      --accent-soft: #EEF2FF;
+      --accent-hover: #4F46E5;
+      --border: #E4E4E7;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Geist', sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250,250,250,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--text-primary); background: var(--bg-subtle); }
+
+    /* LAYOUT */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    section { padding: 96px 0; }
+
+    /* HERO */
+    #hero {
+      padding: 140px 0 88px;
+    }
+    .hero-content { max-width: 680px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Geist Mono', monospace;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(99,102,241,0.2);
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero-name {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero-title {
+      font-size: clamp(15px, 2vw, 18px);
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.25);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-ghost:hover {
+      background: var(--bg-subtle);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    .hero-meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+    .hero-stat .num {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+    .hero-stat .label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .hero-stat .num span { color: var(--accent); }
+
+    /* SECTION HEADERS */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'Geist Mono', monospace;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 48px;
+    }
+    .section-title span { color: var(--text-muted); font-weight: 400; }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ABOUT */
+    #about .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-highlights { display: flex; flex-direction: column; gap: 12px; }
+    .highlight-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .highlight-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .highlight-card .icon { font-size: 20px; margin-bottom: 6px; }
+    .highlight-card strong { font-size: 14px; font-weight: 600; color: var(--text-primary); display: block; }
+    .highlight-card span { font-size: 13px; color: var(--text-muted); }
+
+    /* EXPERIENCE */
+    #experience .timeline { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-meta { padding-top: 2px; }
+    .exp-period {
+      font-size: 12px;
+      font-family: 'Geist Mono', monospace;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .exp-company {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .exp-location {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .exp-role {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .exp-clients {
+      font-size: 12px;
+      font-family: 'Geist Mono', monospace;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .exp-clients .clients-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(99,102,241,0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .exp-bullets li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px;
+      font-family: 'Geist Mono', monospace;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* SKILLS */
+    #skills .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .skill-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .skill-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-soft);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .skill-card-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-family: 'Geist Mono', monospace;
+    }
+
+    /* PROJECTS */
+    #projects .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .project-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .project-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-soft);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .project-badge {
+      font-size: 11px;
+      font-weight: 500;
+      font-family: 'Geist Mono', monospace;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(99,102,241,0.2);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .project-name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .project-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* AWARDS */
+    #awards .awards-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .award-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .award-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .award-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+    .award-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+    .award-org { font-size: 13px; color: var(--text-muted); }
+
+    /* EDUCATION */
+    .edu-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .edu-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-soft);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .edu-degree { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 4px; }
+    .edu-school { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+    .edu-meta { font-size: 12px; font-family: 'Geist Mono', monospace; color: var(--text-muted); }
+
+    /* CONTACT */
+    #contact { background: var(--bg-base); }
+    .contact-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-box h3 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .contact-box p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      transition: color 0.15s, background 0.15s, transform 0.15s;
+    }
+    .contact-link:hover {
+      color: var(--text-primary);
+      background: var(--bg-muted);
+      transform: translateY(-1px);
+    }
+    .contact-link .contact-icon { font-size: 16px; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+    }
+    footer p {
+      font-size: 12px;
+      font-family: 'Geist Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      #about .grid { grid-template-columns: 1fr; gap: 32px; }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .contact-box { padding: 32px 20px; }
+      .edu-card { flex-direction: column; gap: 16px; text-align: center; }
+      .hero-meta { flex-wrap: wrap; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">shihab<span>.</span>dev</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Available for new opportunities</div>
+        <h1 class="hero-name">Shihab<br/>Jamil</h1>
+        <p class="hero-title">Technical Consultant · Full-Stack Engineer · Digital Publishing & Healthcare Data Specialist</p>
+        <p class="hero-desc">
+          Engineering scalable infrastructure and editorial systems for major media organisations across North America, Europe, and Asia — and pharmaceutical data platforms for global healthcare clients. 13+ years turning complex requirements into reliable, production-grade software.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Get in touch
+          </a>
+          <a href="https://www.linkedin.com/in/shihabjamil/" target="_blank" class="btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-stat">
+            <div class="num">13<span>+</span></div>
+            <div class="label">Years experience</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">9<span>+</span></div>
+            <div class="label">Countries served</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">50<span>+</span></div>
+            <div class="label">ETL pipelines built</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">19<span>×</span></div>
+            <div class="label">Pipeline speedup</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Who I am <span>& what I do</span></h2>
+      <div class="grid">
+        <div class="about-text fade-up">
+          <p>
+            I'm a technical consultant and full-stack engineer based in Atlanta, GA with over 13 years of experience delivering enterprise platforms across two distinct domains: digital publishing infrastructure for major media organisations, and pharmaceutical data platforms for global healthcare clients.
+          </p>
+          <p>
+            On the media side, my expertise spans the Stibo DX / CUE content management ecosystem, web infrastructure (nginx, Docker, AWS), API development, and end-to-end platform engineering — from architecture through deployment and team enablement.
+          </p>
+          <p>
+            On the data side, I designed and optimised enterprise OLTP and OLAP systems handling terabytes of pharmaceutical market data, built 50+ ETL pipelines, and slashed critical pipeline runtimes by up to 19× through deep query engineering and architectural restructuring.
+          </p>
+        </div>
+        <div class="about-highlights fade-up">
+          <div class="highlight-card">
+            <div class="icon">📍</div>
+            <strong>Based in Atlanta, GA</strong>
+            <span>Open to remote opportunities worldwide</span>
+          </div>
+          <div class="highlight-card">
+            <div class="icon">🌍</div>
+            <strong>Global reach</strong>
+            <span>USA · Belgium · France · Germany · Switzerland · India · Ireland · Australia · Canada</span>
+          </div>
+          <div class="highlight-card">
+            <div class="icon">⚡</div>
+            <strong>Full-stack & end-to-end ownership</strong>
+            <span>Backend · API · DevOps · Frontend · Infrastructure · Team enablement</span>
+          </div>
+          <div class="highlight-card">
+            <div class="icon">🎓</div>
+            <strong>B.Sc. Computer Science</strong>
+            <span>Khulna University of Engineering & Technology</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Where I've <span>worked</span></h2>
+      <div class="timeline">
+
+        <!-- Stibo DX Inc Atlanta -->
+        <div class="exp-item fade-up">
+          <div class="exp-meta">
+            <div class="exp-period">Feb 2022 — Present</div>
+            <div class="exp-company">Stibo DX, Inc.</div>
+            <div class="exp-location">Atlanta, GA</div>
+          </div>
+          <div class="exp-body">
+            <div class="exp-role">Technical Consultant</div>
+            <div class="exp-clients">
+              <span class="clients-label">Clients</span>
+              McClatchy · Rossel · RTS · Stars &amp; Stripes · The Hindu
+            </div>
+            <ul class="exp-bullets">
+              <li>Primary technical point-of-contact for multi-country CUE / Escenic implementations, bridging business requirements and engineering across distributed customer teams.</li>
+              <li>Designed and executed automated migration pipelines moving clients from legacy CMS to CCI/CUE standard, cutting manual intervention by ~70%.</li>
+              <li>Led end-to-end platform upgrade of Stars &amp; Stripes from CUE 7 (Silicon) to CUE 8 (Junin): consolidated four fragmented repositories into a single monorepo, introduced blueprint-driven config generation with per-environment separation, and eliminated all hardcoded override files — reducing deployment complexity and ongoing maintenance burden.</li>
+              <li>Diagnosed and resolved recurring platform availability incidents across CUE Front deployments by identifying root causes in server configuration and request handling; implemented upstream health checks and traffic controls that eliminated recurrence.</li>
+              <li>Identified and resolved critical content ingestion failures affecting news wire pipelines by tracing configuration drift across hotfolder and enrichment services; restored normal ingestion for multiple clients across different markets.</li>
+            </ul>
+            <div class="exp-tags">
+              <span class="tag">Python</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">GraphQL</span>
+              <span class="tag">Docker</span>
+              <span class="tag">Jenkins</span>
+              <span class="tag">nginx</span>
+              <span class="tag">AWS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stibo DX Ltd Dhaka -->
+        <div class="exp-item fade-up">
+          <div class="exp-meta">
+            <div class="exp-period">Sep 2018 — Feb 2022</div>
+            <div class="exp-company">Stibo DX Ltd</div>
+            <div class="exp-location">Dhaka, Bangladesh</div>
+          </div>
+          <div class="exp-body">
+            <div class="exp-role">Technical Consultant</div>
+            <div class="exp-clients">
+              <span class="clients-label">Clients</span>
+              Stars &amp; Stripes · McClatchy · Regional Media Publishers
+            </div>
+            <ul class="exp-bullets">
+              <li>Delivered CUE / Escenic platform implementations and ongoing technical support for US-based media clients, owning requirements analysis, integration development, and production operations.</li>
+              <li>Resolved cook service rendering bottlenecks on the Stars &amp; Stripes publishing platform by implementing horizontal scaling behind an nginx least-conn load balancer, tuning proxy buffer sizes to handle oversized response headers, and correcting timeout mismatches that caused cascading request failures under load.</li>
+              <li>Built and maintained content delivery pipelines, wire integrations, and publication configurations across multiple Escenic environments.</li>
+            </ul>
+            <div class="exp-tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">GraphQL</span>
+              <span class="tag">Docker</span>
+              <span class="tag">nginx</span>
+              <span class="tag">CUE</span>
+              <span class="tag">Escenic</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- IQVIA -->
+        <div class="exp-item fade-up">
+          <div class="exp-meta">
+            <div class="exp-period">Jun 2011 — Aug 2018</div>
+            <div class="exp-company">IQVIA (formerly IMS Health)</div>
+            <div class="exp-location">Dhaka, Bangladesh</div>
+          </div>
+          <div class="exp-body">
+            <div class="exp-role">Application Development Specialist II</div>
+            <div class="exp-clients">
+              <span class="clients-label">Clients</span>
+              Merck Consumer Healthcare · Lilly · AIMD · Business Unit Development
+            </div>
+            <ul class="exp-bullets">
+              <li>Designed scalable database architectures across OLTP and OLAP systems handling terabytes of pharmaceutical market data for global healthcare clients across Germany, Ireland, Australia, and Canada.</li>
+              <li>Re-engineered a mission-critical ETL pipeline, reducing production runtime from 38 hours to 2 hours through query plan optimisation, partitioning, and batch restructuring — a 19× improvement.</li>
+              <li>Compressed an OLAP cube to 20% of the source OLTP footprint through aggressive dimension consolidation and pre-aggregation strategies.</li>
+              <li>Built 50+ ETL processes with full source-to-target mapping documentation and authored thousands of MDX expressions against complex pharmaceutical datasets across seven years of consecutive delivery.</li>
+            </ul>
+            <div class="exp-tags">
+              <span class="tag">Python</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MSSQL</span>
+              <span class="tag">Oracle</span>
+              <span class="tag">SSAS</span>
+              <span class="tag">SSIS</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">MDX</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label">Skills</div>
+      <h2 class="section-title">Technical <span>stack</span></h2>
+      <div class="skills-grid">
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">⌨️</div>
+            <div class="skill-card-name">Languages</div>
+          </div>
+          <div class="skill-pills">
+            <span class="pill">Python</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">Java</span>
+            <span class="pill">SQL</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">🎨</div>
+            <div class="skill-card-name">Front-End</div>
+          </div>
+          <div class="skill-pills">
+            <span class="pill">React.js</span>
+            <span class="pill">Next.js</span>
+            <span class="pill">Vue.js</span>
+            <span class="pill">Nuxt.js</span>
+            <span class="pill">Angular</span>
+            <span class="pill">Redux</span>
+            <span class="pill">HTML5/CSS3</span>
+            <span class="pill">SCSS</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">⚙️</div>
+            <div class="skill-card-name">Back-End & APIs</div>
+          </div>
+          <div class="skill-pills">
+            <span class="pill">Node.js</span>
+            <span class="pill">Express.js</span>
+            <span class="pill">GraphQL</span>
+            <span class="pill">REST</span>
+            <span class="pill">Java</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">🏗️</div>
+            <div class="skill-card-name">Infrastructure & DevOps</div>
+          </div>
+          <div class="skill-pills">
+            <span class="pill">Docker</span>
+            <span class="pill">AWS</span>
+            <span class="pill">nginx</span>
+            <span class="pill">CI/CD</span>
+            <span class="pill">Jenkins</span>
+            <span class="pill">Git</span>
+            <span class="pill">BitBucket</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">🗄️</div>
+            <div class="skill-card-name">Data & Analytics</div>
+          </div>
+          <div class="skill-pills">
+            <span class="pill">MSSQL</span>
+            <span class="pill">Oracle</span>
+            <span class="pill">MySQL</span>
+            <span class="pill">MongoDB</span>
+            <span class="pill">SSAS</span>
+            <span class="pill">SSIS</span>
+            <span class="pill">Power BI</span>
+            <span class="pill">MDX</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">🧪</div>
+            <div class="skill-card-name">Testing</div>
+          </div>
+          <div class="skill-pills">
+            <span class="pill">Jest</span>
+            <span class="pill">Enzyme</span>
+            <span class="pill">Mocha</span>
+            <span class="pill">Chai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Notable <span>work</span></h2>
+      <div class="projects-grid">
+
+        <div class="project-card fade-up">
+          <div class="project-card-top">
+            <div class="project-icon">🗞️</div>
+            <span class="project-badge">Client Work</span>
+          </div>
+          <div class="project-name">Stars &amp; Stripes Platform Upgrade</div>
+          <p class="project-desc">
+            Led end-to-end CUE platform upgrade from Silicon (v7) to Junin (v8) for Stars &amp; Stripes, the US military's independent news organisation. Consolidated four separate repositories into a single monorepo, introduced blueprint-driven config generation with clean per-environment separation, and eliminated hardcoded override files — drastically reducing deployment complexity and ongoing maintenance overhead.
+          </p>
+          <div class="project-stack">
+            <span class="tag">TypeScript</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Docker</span>
+            <span class="tag">nginx</span>
+            <span class="tag">CUE 8</span>
+            <span class="tag">GraphQL</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up">
+          <div class="project-card-top">
+            <div class="project-icon">⚡</div>
+            <span class="project-badge">Client Work</span>
+          </div>
+          <div class="project-name">ETL Pipeline Re-engineering</div>
+          <p class="project-desc">
+            Re-engineered a mission-critical pharmaceutical ETL pipeline serving global healthcare clients, slashing production runtime from 38 hours to 2 hours — a 19× improvement. Achieved through deep query plan analysis, strategic partitioning, and batch restructuring. Also compressed an OLAP cube to 20% of its original OLTP footprint through dimension consolidation and pre-aggregation.
+          </p>
+          <div class="project-stack">
+            <span class="tag">MSSQL</span>
+            <span class="tag">SSIS</span>
+            <span class="tag">Python</span>
+            <span class="tag">SSAS</span>
+            <span class="tag">MDX</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up">
+          <div class="project-card-top">
+            <div class="project-icon">📡</div>
+            <span class="project-badge">Client Work</span>
+          </div>
+          <div class="project-name">Feeds Enrichment Service Migration</div>
+          <p class="project-desc">
+            Migrated the news wire enrichment service from a shared upstream monorepo into the Stars &amp; Stripes platform monorepo, resolving a critical ARM64 / Node 16 build incompatibility along the way. Mapped and rewrote the libxmljs API surface to its maintained fork (libxmljs2), preserved all stripes-specific configuration patterns — envsubst-based secret injection, custom publication configs, and container entrypoints — and delivered a fully portable, self-contained service deployable across all environments without upstream coupling.
+          </p>
+          <div class="project-stack">
+            <span class="tag">TypeScript</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Docker</span>
+            <span class="tag">NewsML G2</span>
+            <span class="tag">libxmljs2</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up">
+          <div class="project-card-top">
+            <div class="project-icon">🔄</div>
+            <span class="project-badge">Client Work</span>
+          </div>
+          <div class="project-name">Multi-tier Cache Invalidation System</div>
+          <p class="project-desc">
+            Designed and implemented a multi-layer content delivery and cache invalidation pipeline for a high-traffic digital news platform. On each publish event, an ECE changelog daemon triggers a shell pipeline that restocks the Fridge (nginx-based data cache) and issues targeted PURGE requests to two independent Varnish WebCACHE nodes — ensuring consistency across the full reader-facing stack without stale content. The system handles TTL management, active push invalidation, and CloudFront extension points.
+          </p>
+          <div class="project-stack">
+            <span class="tag">nginx</span>
+            <span class="tag">Varnish</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Shell</span>
+            <span class="tag">ECE</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up">
+          <div class="project-card-top">
+            <div class="project-icon">🚗</div>
+            <span class="project-badge">Personal Project</span>
+          </div>
+          <div class="project-name">CarRecords Australia</div>
+          <p class="project-desc">
+            Designed and built a vehicle history lookup service end-to-end — aggregating records from multiple national databases to improve transparency in Australia's used-car market. Full ownership from architecture through production deployment: REST API, data normalisation layer, and React frontend.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Node.js</span>
+            <span class="tag">Express.js</span>
+            <span class="tag">React.js</span>
+            <span class="tag">SCSS</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- AWARDS & EDUCATION -->
+  <section id="awards">
+    <div class="container">
+      <div class="section-label">Recognition & Education</div>
+      <h2 class="section-title">Awards <span>& background</span></h2>
+
+      <div class="awards-list" style="margin-bottom: 48px;">
+        <div class="award-card fade-up">
+          <div class="award-icon">🏆</div>
+          <div>
+            <div class="award-title">Best Developer Award</div>
+            <div class="award-org">IQVIA · 2015</div>
+          </div>
+        </div>
+        <div class="award-card fade-up">
+          <div class="award-icon">🥇</div>
+          <div>
+            <div class="award-title">CEO Team Award</div>
+            <div class="award-org">IQVIA · 2016</div>
+          </div>
+        </div>
+        <div class="award-card fade-up">
+          <div class="award-icon">⭐</div>
+          <div>
+            <div class="award-title">Pat on the Back Award</div>
+            <div class="award-org">IQVIA · 2017</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card fade-up">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-degree">B.Sc. in Computer Science and Engineering</div>
+          <div class="edu-school">Khulna University of Engineering and Technology, Bangladesh</div>
+          <div class="edu-meta">CGPA: 3.36 / 4.00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-box fade-up">
+        <h3>Let's work together</h3>
+        <p>Open to consulting engagements, full-time roles, and technical advisory positions. Based in Atlanta, GA — available remotely worldwide.</p>
+        <div class="contact-links">
+          <a href="mailto:shihabims@gmail.com" class="contact-link">
+            <span class="contact-icon">✉️</span>
+            shihabims@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/shihabjamil/" target="_blank" class="contact-link">
+            <span class="contact-icon">💼</span>
+            linkedin.com/in/shihabjamil
+          </a>
+          <a href="tel:+14044336463" class="contact-link">
+            <span class="contact-icon">📞</span>
+            +1 (404) 433-6463
+          </a>
+        </div>
+        <a href="mailto:shihabims@gmail.com" class="btn-primary" style="display:inline-flex; justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Send me an email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Md Shihab Jamil · Built with care · Atlanta, GA</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 80) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text-primary)' : '';
+        a.style.background = a.getAttribute('href') === '#' + current ? 'var(--bg-subtle)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
