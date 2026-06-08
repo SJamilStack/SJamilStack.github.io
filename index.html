@@ -140,11 +140,25 @@
       animation: fadeUp 0.6s 0.1s ease both;
     }
     .hero-title {
-      font-size: clamp(15px, 2vw, 18px);
-      font-weight: 500;
-      color: var(--text-primary);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
       margin-bottom: 12px;
       animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-chip {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .hero-chip.accent {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-color: rgba(99,102,241,0.2);
     }
     .hero-location {
       font-size: 13px;
@@ -285,13 +299,14 @@
       box-shadow: var(--shadow-sm);
       transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      gap: 3px;
     }
     .highlight-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
-    .highlight-card .icon { font-size: 18px; flex-shrink: 0; }
-    .highlight-card strong { font-size: 13px; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 1px; }
-    .highlight-card span { font-size: 12px; color: var(--text-muted); }
+    .highlight-card-row { display: flex; align-items: center; gap: 8px; }
+    .highlight-card .icon { font-size: 15px; flex-shrink: 0; }
+    .highlight-card strong { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .highlight-card span { font-size: 12px; color: var(--text-muted); padding-left: 23px; }
 
     /* EXPERIENCE */
     #experience .timeline { display: flex; flex-direction: column; gap: 0; }
@@ -640,7 +655,11 @@
         <div class="hero-content">
           <div class="hero-badge">Available for new opportunities</div>
           <h1 class="hero-name">Shihab<br/>Jamil</h1>
-          <p class="hero-title">Technical Consultant · Full-Stack Engineer · Digital Publishing &amp; Healthcare Data Specialist</p>
+          <div class="hero-title">
+            <span class="hero-chip accent">Full-Stack Engineer</span>
+            <span class="hero-chip">Technical Consultant</span>
+            <span class="hero-chip">Digital Publishing &amp; Healthcare</span>
+          </div>
           <p class="hero-location">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Atlanta, GA &nbsp;·&nbsp; Open to remote worldwide
@@ -674,7 +693,7 @@
           </div>
           <div class="hero-stat-card">
             <div class="num">19<span>×</span></div>
-            <div class="label">Pipeline speedup</div>
+            <div class="label">CI/CD pipeline speedup</div>
           </div>
         </div>
       </div>
@@ -700,23 +719,19 @@
         </div>
         <div class="about-highlights fade-up">
           <div class="highlight-card">
-            <div class="icon">📍</div>
-            <strong>Based in Atlanta, GA</strong>
+            <div class="highlight-card-row"><div class="icon">📍</div><strong>Based in Atlanta, GA</strong></div>
             <span>Open to remote opportunities worldwide</span>
           </div>
           <div class="highlight-card">
-            <div class="icon">🌍</div>
-            <strong>Global reach</strong>
+            <div class="highlight-card-row"><div class="icon">🌍</div><strong>Global reach</strong></div>
             <span>USA · Belgium · France · Germany · Switzerland · India · Ireland · Australia · Canada</span>
           </div>
           <div class="highlight-card">
-            <div class="icon">⚡</div>
-            <strong>Full-stack & end-to-end ownership</strong>
+            <div class="highlight-card-row"><div class="icon">⚡</div><strong>Full-stack & end-to-end ownership</strong></div>
             <span>Backend · API · DevOps · Frontend · Infrastructure · Team enablement</span>
           </div>
           <div class="highlight-card">
-            <div class="icon">🎓</div>
-            <strong>B.Sc. Computer Science</strong>
+            <div class="highlight-card-row"><div class="icon">🎓</div><strong>B.Sc. Computer Science</strong></div>
             <span>Khulna University of Engineering & Technology</span>
           </div>
         </div>
@@ -749,7 +764,7 @@
             <ul class="exp-bullets">
               <li>Primary technical point-of-contact for multi-country CUE / Escenic implementations, bridging business requirements and engineering across distributed customer teams.</li>
               <li>Designed and executed automated migration pipelines moving clients from legacy CMS to CCI/CUE standard, cutting manual intervention by ~70%.</li>
-              <li>Led end-to-end platform upgrade of Stars &amp; Stripes from CUE 7 (Silicon) to CUE 8 (Junin): consolidated four fragmented repositories into a single monorepo, introduced blueprint-driven config generation with per-environment separation, and eliminated all hardcoded override files — reducing deployment complexity and ongoing maintenance burden.</li>
+              <li>Led end-to-end platform upgrade of Stars &amp; Stripes from CUE 7 (Silicon) to CUE 8 (Junin): consolidated four fragmented repositories into a single monorepo, introduced blueprint-driven config generation with per-environment separation, eliminated all hardcoded override files, and overhauled the CI/CD pipeline so Jenkins deployments are fully driven by generated config — eliminating manual steps and config drift.</li>
               <li>Diagnosed and resolved recurring platform availability incidents across CUE Front deployments by identifying root causes in server configuration and request handling; implemented upstream health checks and traffic controls that eliminated recurrence.</li>
               <li>Identified and resolved critical content ingestion failures affecting news wire pipelines by tracing configuration drift across hotfolder and enrichment services; restored normal ingestion for multiple clients across different markets.</li>
             </ul>
@@ -948,7 +963,7 @@
           </div>
           <div class="project-name">CUE Platform Major Version Upgrade</div>
           <p class="project-desc">
-            Led end-to-end CUE platform upgrade from Silicon (v7) to Junin (v8) for a major digital news organisation. Consolidated four separate repositories into a single monorepo, introduced blueprint-driven config generation with clean per-environment separation, and eliminated hardcoded override files — drastically reducing deployment complexity and ongoing maintenance overhead.
+            Led end-to-end CUE platform upgrade from Silicon (v7) to Junin (v8) for a major digital news organisation. Consolidated four separate repositories into a single monorepo, introduced blueprint-driven config generation with clean per-environment separation, and eliminated hardcoded override files. Overhauled the CI/CD pipeline — Jenkins-driven deployments now consume environment-specific configs generated entirely from blueprint, removing manual intervention and eliminating config drift across environments.
           </p>
           <div class="project-stack">
             <span class="tag">TypeScript</span>
